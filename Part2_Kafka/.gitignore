@@ -1,0 +1,8 @@
+.idea/
+BnDemandEstimate.iml
+derby.log
+metastore_db/
+src/test/resources/.DS_Store
+target/
+.DS_Store
+logs/
