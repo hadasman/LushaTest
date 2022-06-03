@@ -65,7 +65,7 @@ SELECT
 	coalesce(a.utmSource, b.utmSource) AS utmSource, 
 	coalesce(a.date_col, b.date_col) AS CalendarDate, 
 	CASE WHEN number_registrations IS NOT NULL THEN number_registrations ELSE 0 END AS number_of_registrations, 
-	CASE WHEN number_of_purchASes IS NOT NULL THEN number_of_purchASes ELSE 0 END AS number_of_purchASes, 
+	CASE WHEN number_of_purchASes IS NOT NULL THEN number_of_purchASes ELSE 0 END AS number_of_purchases, 
 	total_billing
 FROM agg_registrations a full outer JOIN total_billings b ON a.utmSource=b.utmSource AND a.date_col=b.date_col;
 
