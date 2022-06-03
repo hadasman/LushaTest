@@ -13,7 +13,7 @@ import org.apache.kafka.streams.{KafkaStreams, StreamsConfig, Topology}
 import java.util.Properties
 import Domain._
 
-object KafkaStreamsApp {
+object KafkaTest {
   import org.apache.kafka.streams.scala.ImplicitConversions._
 
   implicit def serde[A >: Null : Decoder : Encoder]: Serde[A] = {
