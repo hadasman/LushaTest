@@ -1,8 +1,8 @@
 -- Add column with only date (without time) to users_utm
-DROP TABLE IF EXISTS temp_users_utm_with_date;
-CREATE TABLE temp_users_utm_with_date
+DROP TABLE IF EXISTS users_utm_with_date;
+CREATE TABLE users_utm_with_date
 SELECT split(utmDate, " ")[0] AS date_col, * 
-FROM temp_users_utm;
+FROM users_utm;
 
 -- Aggregate table with the billings division for each user, to utmSource&date
 DROP TABLE IF EXISTS agg_billings;
@@ -10,7 +10,7 @@ CREATE TABLE agg_billings
 	-- Table with latest utm before purchASe - 50% of billing (no time in purchASe table- ASsuming purchASe wAS made on day of a utm visit)
 SELECT a.userId, utmSource, date_col, Billing_amount/2 AS single_source_billing_amount
 FROM 
-	temp_purchASes a JOIN temp_users_utm_with_date b ON a.purchASeDate=b.date_col AND a.userId=b.userId
+	purchases a JOIN users_utm_with_date b ON a.purchASeDate=b.date_col AND a.userId=b.userId
 
 UNION
 
@@ -30,7 +30,7 @@ FROM (
 		FROM (	
 			SELECT a.userId, date_col, utmSource, Billing_amount
 			FROM 
-				temp_purchASes a JOIN temp_users_utm_with_date b ON a.purchASeDate>b.date_col AND a.userId=b.userId	)
+				purchases a JOIN users_utm_with_date b ON a.purchASeDate>b.date_col AND a.userId=b.userId	)
 		GROUP BY userId)
 );
 
